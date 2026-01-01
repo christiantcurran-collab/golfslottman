@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your perfect golf getaway. Browse 3-night golf trips with accommodation, courses, flights, and car rental.">
+    <title>GolfSlot | Plan Your Perfect Golf Trip</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="site-logo">
+                    <i class="fas fa-golf-ball logo-icon"></i>
+                    <div class="logo-text-container">
+                        <span class="logo-text">GolfSlot</span>
+                        <span class="logo-tagline">Plan Your Perfect Trip</span>
+                    </div>
+                </div>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        Destinations <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="scottsdale.html">Scottsdale, Arizona</a></li>
+                        <li><a href="naples.html">Streamsong (via Tampa)</a></li>
+                        <li><a href="dallas.html">Dallas/Fort Worth</a></li>
+                        <li><a href="orlando.html">Streamsong (via Orlando)</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="add-trip.html" class="nav-link">Add Trip</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="my-trips.html" class="nav-link">My Trips</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1><i class="fas fa-golf-ball"></i> Plan Your Perfect Golf Getaway</h1>
+        <p>Browse our curated 3-night golf trips or create your own custom itinerary with accommodation, courses, flights, and car rental all in one place.</p>
+        <div class="hero-cta">
+            <a href="add-trip.html" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Create Custom Trip
+            </a>
+            <a href="#destinations" class="btn btn-secondary">
+                <i class="fas fa-map-marker-alt"></i> View Destinations
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Destinations Section -->
+        <section class="section" id="destinations">
+            <h2 class="section-title">
+                <i class="fas fa-map-marker-alt"></i> Top Golf Destinations
+            </h2>
+            
+            <div class="trips-grid">
+                <!-- Scottsdale Card -->
+                <a href="scottsdale.html" class="trip-card">
+                    <div class="trip-card-image">
+                        <img src="https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=600&h=400&fit=crop" alt="Scottsdale desert golf">
+                        <span class="trip-card-badge">3 Nights</span>
+                    </div>
+                    <div class="trip-card-content">
+                        <h3>Scottsdale, Arizona</h3>
+                        <p>The desert golf capital with near-guaranteed sunshine (avg highs 72-77°F). Stunning mountain backdrops and excellent dining scene.</p>
+                        <div class="trip-highlights">
+                            <span class="highlight-tag"><i class="fas fa-golf-ball"></i> TPC Scottsdale</span>
+                            <span class="highlight-tag"><i class="fas fa-golf-ball"></i> Troon North</span>
+                            <span class="highlight-tag"><i class="fas fa-sun"></i> Desert Views</span>
+                        </div>
+                        <div class="trip-card-footer">
+                            <span class="view-itinerary">
+                                View Itinerary <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Streamsong (Tampa) Card -->
+                <a href="naples.html" class="trip-card">
+                    <div class="trip-card-image">
+                        <img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=600&h=400&fit=crop" alt="Streamsong Florida golf">
+                        <span class="trip-card-badge">3 Nights</span>
+                    </div>
+                    <div class="trip-card-content">
+                        <h3>Streamsong Resort (via Tampa)</h3>
+                        <p>America's premier golf destination. Three world-class courses by Doak, Coore & Crenshaw, and Hanse. Stay on-site for total immersion.</p>
+                        <div class="trip-highlights">
+                            <span class="highlight-tag"><i class="fas fa-golf-ball"></i> Blue Course</span>
+                            <span class="highlight-tag"><i class="fas fa-golf-ball"></i> Red & Black</span>
+                            <span class="highlight-tag"><i class="fas fa-trophy"></i> Top 20 US</span>
+                        </div>
+                        <div class="trip-card-footer">
+                            <span class="view-itinerary">
+                                View Itinerary <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Dallas Card -->
+                <a href="dallas.html" class="trip-card">
+                    <div class="trip-card-image">
+                        <img src="https://images.unsplash.com/photo-1592919505780-303950717480?w=600&h=400&fit=crop" alt="Dallas Texas golf">
+                        <span class="trip-card-badge">3 Nights</span>
+                    </div>
+                    <div class="trip-card-content">
+                        <h3>Dallas/Fort Worth, Texas</h3>
+                        <p>Excellent value with Airbnb accommodation. Great steakhouses, BBQ, and significantly lower green fees than Scottsdale.</p>
+                        <div class="trip-highlights">
+                            <span class="highlight-tag"><i class="fas fa-golf-ball"></i> Cowboys GC</span>
+                            <span class="highlight-tag"><i class="fas fa-golf-ball"></i> The Tribute</span>
+                            <span class="highlight-tag"><i class="fab fa-airbnb"></i> Airbnb Stay</span>
+                        </div>
+                        <div class="trip-card-footer">
+                            <span class="view-itinerary">
+                                View Itinerary <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Orlando/Streamsong Card -->
+                <a href="orlando.html" class="trip-card">
+                    <div class="trip-card-image">
+                        <img src="https://images.unsplash.com/photo-1593111774240-d529f12cf4bb?w=600&h=400&fit=crop" alt="Orlando Streamsong golf">
+                        <span class="trip-card-badge">3 Nights</span>
+                    </div>
+                    <div class="trip-card-content">
+                        <h3>Streamsong (via Orlando)</h3>
+                        <p>Best flight options via MCO, then stay at Streamsong Resort. Three world-class courses justify the trip alone.</p>
+                        <div class="trip-highlights">
+                            <span class="highlight-tag"><i class="fas fa-golf-ball"></i> Streamsong</span>
+                            <span class="highlight-tag"><i class="fas fa-plane"></i> MCO Flights</span>
+                            <span class="highlight-tag"><i class="fas fa-trophy"></i> Top 20 US</span>
+                        </div>
+                        <div class="trip-card-footer">
+                            <span class="view-itinerary">
+                                View Itinerary <i class="fas fa-arrow-right"></i>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="section">
+            <h2 class="section-title">
+                <i class="fas fa-star"></i> Why Plan With GolfSlot?
+            </h2>
+            
+            <div class="trips-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <div class="trip-card" style="cursor: default;">
+                    <div class="trip-card-content">
+                        <h3><i class="fas fa-plane" style="color: var(--gold-color); margin-right: 0.5rem;"></i> Flight Options</h3>
+                        <p>Compare flights from LAX and EWR with prices and times to help you plan the perfect departure.</p>
+                    </div>
+                </div>
+                
+                <div class="trip-card" style="cursor: default;">
+                    <div class="trip-card-content">
+                        <h3><i class="fas fa-hotel" style="color: var(--gold-color); margin-right: 0.5rem;"></i> Flexible Accommodation</h3>
+                        <p>Add links to your preferred Airbnb, hotel, or resort. Keep all your booking details in one place.</p>
+                    </div>
+                </div>
+                
+                <div class="trip-card" style="cursor: default;">
+                    <div class="trip-card-content">
+                        <h3><i class="fas fa-flag" style="color: var(--gold-color); margin-right: 0.5rem;"></i> Multiple Courses</h3>
+                        <p>Add up to 4 golf courses per trip with tee times, prices, and direct booking links.</p>
+                    </div>
+                </div>
+                
+                <div class="trip-card" style="cursor: default;">
+                    <div class="trip-card-content">
+                        <h3><i class="fas fa-car" style="color: var(--gold-color); margin-right: 0.5rem;"></i> Car Rental Integration</h3>
+                        <p>Include car rental details with pricing so everyone knows the total trip cost upfront.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="section" style="text-align: center;">
+            <h2 class="section-title">
+                <i class="fas fa-rocket"></i> Ready to Get Started?
+            </h2>
+            <p style="color: var(--text-medium); margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                Create your custom golf trip in minutes. Add flights, accommodation, courses, and car rental all in one place.
+            </p>
+            <a href="add-trip.html" class="btn btn-primary" style="display: inline-flex;">
+                <i class="fas fa-plus"></i> Create Your Trip
+            </a>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p><i class="fas fa-golf-ball"></i> GolfSlot - Plan Your Perfect Golf Trip</p>
+            <p style="font-size: 0.8rem; opacity: 0.6;">© 2026 GolfSlot. All prices shown are estimates.</p>
+        </div>
+    </footer>
+
+    <script src="navigation.js"></script>
+</body>
+</html>

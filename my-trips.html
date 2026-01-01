@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and manage your saved golf trips.">
+    <title>My Trips | GolfSlot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .saved-trip-card {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(30, 58, 95, 0.1);
+        }
+        
+        .saved-trip-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .saved-trip-header h3 {
+            font-size: 1.25rem;
+            margin: 0;
+        }
+        
+        .saved-trip-header .trip-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .saved-trip-body {
+            padding: 1.5rem;
+        }
+        
+        .trip-section {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .trip-section:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .trip-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .trip-section h4 i {
+            color: var(--gold-color);
+        }
+        
+        .trip-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+        
+        .trip-detail span:first-child {
+            color: var(--text-medium);
+        }
+        
+        .trip-detail span:last-child {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        .trip-detail a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        .trip-detail a:hover {
+            text-decoration: underline;
+        }
+        
+        .course-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .course-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .course-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .course-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+        
+        .course-info {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+        
+        .trip-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-delete {
+            background: #fef2f2;
+            color: var(--danger-color);
+        }
+        
+        .btn-delete:hover {
+            background: #fee2e2;
+        }
+        
+        .btn-share {
+            background: var(--bg-light);
+            color: var(--primary-color);
+        }
+        
+        .btn-share:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .trip-total-cost {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+        
+        .trip-total-cost span:last-child {
+            color: var(--success-color);
+        }
+        
+        @media (max-width: 768px) {
+            .saved-trip-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .trip-detail {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            
+            .course-list li {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .trip-actions {
+                flex-direction: column;
+            }
+            
+            .btn-small {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="site-logo">
+                    <i class="fas fa-golf-ball logo-icon"></i>
+                    <div class="logo-text-container">
+                        <span class="logo-text">GolfSlot</span>
+                        <span class="logo-tagline">Plan Your Perfect Trip</span>
+                    </div>
+                </div>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        Destinations <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="scottsdale.html">Scottsdale, Arizona</a></li>
+                        <li><a href="naples.html">Streamsong (via Tampa)</a></li>
+                        <li><a href="dallas.html">Dallas/Fort Worth</a></li>
+                        <li><a href="orlando.html">Streamsong (via Orlando)</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="add-trip.html" class="nav-link">Add Trip</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="my-trips.html" class="nav-link">My Trips</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="itinerary-header">
+        <h1><i class="fas fa-folder-open"></i> My Trips</h1>
+        <p>View and manage your saved golf trips</p>
+    </section>
+
+    <!-- Content -->
+    <div class="container">
+        <div id="tripsContainer">
+            <!-- Trips will be loaded here -->
+        </div>
+        
+        <div id="noTrips" class="no-trips-message" style="display: none;">
+            <i class="fas fa-golf-ball"></i>
+            <h3>No Trips Yet</h3>
+            <p>You haven't created any golf trips yet.</p>
+            <a href="add-trip.html" class="btn btn-primary" style="display: inline-flex; margin-top: 1rem;">
+                <i class="fas fa-plus"></i> Create Your First Trip
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p><i class="fas fa-golf-ball"></i> GolfSlot - Plan Your Perfect Golf Trip</p>
+            <p style="font-size: 0.8rem; opacity: 0.6;">© 2026 GolfSlot. All prices shown are estimates.</p>
+        </div>
+    </footer>
+
+    <script src="navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTrips();
+        });
+        
+        function loadTrips() {
+            const trips = JSON.parse(localStorage.getItem('golfTrips') || '[]');
+            const container = document.getElementById('tripsContainer');
+            const noTrips = document.getElementById('noTrips');
+            
+            if (trips.length === 0) {
+                noTrips.style.display = 'block';
+                container.style.display = 'none';
+                return;
+            }
+            
+            noTrips.style.display = 'none';
+            container.style.display = 'block';
+            container.innerHTML = '';
+            
+            trips.forEach(trip => {
+                const card = createTripCard(trip);
+                container.appendChild(card);
+            });
+        }
+        
+        function createTripCard(trip) {
+            const card = document.createElement('div');
+            card.className = 'saved-trip-card';
+            
+            // Calculate totals
+            const numPeople = trip.numPeople || 4;
+            const flightPerPerson = trip.flights?.pricePerPerson || 0;
+            const accommodationPerPerson = Math.round((trip.accommodation?.price || 0) / numPeople);
+            const carPerPerson = Math.round((trip.car?.price || 0) / numPeople);
+            let totalGolf = 0;
+            (trip.courses || []).forEach(c => totalGolf += (c.price || 0));
+            const totalPerPerson = flightPerPerson + accommodationPerPerson + totalGolf + carPerPerson;
+            
+            // Format date
+            const startDate = trip.startDate ? new Date(trip.startDate).toLocaleDateString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            }) : 'Date TBC';
+            
+            // Destination name
+            const destinations = {
+                'scottsdale': 'Scottsdale, AZ',
+                'naples': 'Naples, FL',
+                'dallas': 'Dallas/Fort Worth, TX',
+                'orlando': 'Orlando, FL'
+            };
+            const destinationName = destinations[trip.destination] || trip.destination || '';
+            
+            card.innerHTML = `
+                <div class="saved-trip-header">
+                    <h3>${trip.name || 'Untitled Trip'}</h3>
+                    <div class="trip-meta">
+                        <span><i class="fas fa-calendar"></i> ${startDate}</span>
+                        <span><i class="fas fa-users"></i> ${numPeople} golfers</span>
+                        ${destinationName ? `<span><i class="fas fa-map-marker-alt"></i> ${destinationName}</span>` : ''}
+                    </div>
+                </div>
+                <div class="saved-trip-body">
+                    ${trip.flights?.departure || trip.flights?.arrival ? `
+                    <div class="trip-section">
+                        <h4><i class="fas fa-plane"></i> Flights</h4>
+                        <div class="trip-detail">
+                            <span>${trip.flights.departure || ''} → ${trip.flights.arrival || ''}</span>
+                            <span>$${flightPerPerson}pp</span>
+                        </div>
+                        ${trip.flights.outbound ? `
+                        <div class="trip-detail">
+                            <span>Outbound</span>
+                            <span>${trip.flights.outbound}</span>
+                        </div>
+                        ` : ''}
+                        ${trip.flights.return ? `
+                        <div class="trip-detail">
+                            <span>Return</span>
+                            <span>${trip.flights.return}</span>
+                        </div>
+                        ` : ''}
+                        ${trip.flights.link ? `
+                        <div class="trip-detail">
+                            <span>Booking</span>
+                            <span><a href="${trip.flights.link}" target="_blank"><i class="fas fa-external-link-alt"></i> View Flights</a></span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    ` : ''}
+                    
+                    ${trip.accommodation?.name ? `
+                    <div class="trip-section">
+                        <h4><i class="fas fa-hotel"></i> Accommodation</h4>
+                        <div class="trip-detail">
+                            <span>${trip.accommodation.name}</span>
+                            <span>$${trip.accommodation.price || 0} total ($${accommodationPerPerson}pp)</span>
+                        </div>
+                        ${trip.accommodation.link ? `
+                        <div class="trip-detail">
+                            <span>Booking</span>
+                            <span><a href="${trip.accommodation.link}" target="_blank"><i class="fas fa-external-link-alt"></i> View Booking</a></span>
+                        </div>
+                        ` : ''}
+                        ${trip.accommodation.notes ? `
+                        <div class="trip-detail">
+                            <span>Notes</span>
+                            <span>${trip.accommodation.notes}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    ` : ''}
+                    
+                    ${trip.courses && trip.courses.length > 0 ? `
+                    <div class="trip-section">
+                        <h4><i class="fas fa-golf-ball"></i> Golf Courses</h4>
+                        <ul class="course-list">
+                            ${trip.courses.map((course, i) => `
+                            <li>
+                                <span class="course-name">${course.name}</span>
+                                <div class="course-info">
+                                    ${course.time ? `<span><i class="fas fa-clock"></i> ${course.time}</span>` : ''}
+                                    <span><i class="fas fa-dollar-sign"></i> ${course.price || 0}pp</span>
+                                    ${course.link ? `<a href="${course.link}" target="_blank"><i class="fas fa-external-link-alt"></i> Book</a>` : ''}
+                                </div>
+                            </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                    ` : ''}
+                    
+                    ${trip.car?.company ? `
+                    <div class="trip-section">
+                        <h4><i class="fas fa-car"></i> Car Rental</h4>
+                        <div class="trip-detail">
+                            <span>${trip.car.company} - ${trip.car.type || 'Vehicle'}</span>
+                            <span>$${trip.car.price || 0} total ($${carPerPerson}pp)</span>
+                        </div>
+                        ${trip.car.link ? `
+                        <div class="trip-detail">
+                            <span>Booking</span>
+                            <span><a href="${trip.car.link}" target="_blank"><i class="fas fa-external-link-alt"></i> View Booking</a></span>
+                        </div>
+                        ` : ''}
+                        ${trip.car.notes ? `
+                        <div class="trip-detail">
+                            <span>Notes</span>
+                            <span>${trip.car.notes}</span>
+                        </div>
+                        ` : ''}
+                    </div>
+                    ` : ''}
+                    
+                    <div class="trip-total-cost">
+                        <span>Total Per Person</span>
+                        <span>$${totalPerPerson}</span>
+                    </div>
+                    
+                    <div class="trip-actions">
+                        <button class="btn-small btn-share" onclick="shareTrip(${trip.id})">
+                            <i class="fas fa-share-alt"></i> Share
+                        </button>
+                        <button class="btn-small btn-delete" onclick="deleteTrip(${trip.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        function deleteTrip(id) {
+            if (!confirm('Are you sure you want to delete this trip?')) return;
+            
+            let trips = JSON.parse(localStorage.getItem('golfTrips') || '[]');
+            trips = trips.filter(t => t.id !== id);
+            localStorage.setItem('golfTrips', JSON.stringify(trips));
+            loadTrips();
+        }
+        
+        function shareTrip(id) {
+            const trips = JSON.parse(localStorage.getItem('golfTrips') || '[]');
+            const trip = trips.find(t => t.id === id);
+            
+            if (!trip) return;
+            
+            // Create shareable text
+            let text = `🏌️ ${trip.name}\n`;
+            text += `📅 ${trip.startDate ? new Date(trip.startDate).toLocaleDateString('en-US') : 'Date TBC'}\n`;
+            text += `👥 ${trip.numPeople} golfers\n\n`;
+            
+            if (trip.flights?.departure) {
+                text += `✈️ Flights: ${trip.flights.departure} → ${trip.flights.arrival} - $${trip.flights.pricePerPerson || 0}pp\n`;
+            }
+            
+            if (trip.accommodation?.name) {
+                text += `🏨 Accommodation: ${trip.accommodation.name}\n`;
+            }
+            
+            if (trip.courses && trip.courses.length > 0) {
+                text += `\n⛳ Courses:\n`;
+                trip.courses.forEach((c, i) => {
+                    text += `${i + 1}. ${c.name} - $${c.price || 0}pp\n`;
+                });
+            }
+            
+            // Try native share, fallback to clipboard
+            if (navigator.share) {
+                navigator.share({
+                    title: trip.name,
+                    text: text
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Trip details copied to clipboard!');
+                }).catch(() => {
+                    alert('Unable to share. Please try again.');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

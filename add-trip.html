@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your custom 3-night golf trip with flights, accommodation, courses, and car rental.">
+    <title>Add New Trip | GolfSlot</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <div class="site-logo">
+                    <i class="fas fa-golf-ball logo-icon"></i>
+                    <div class="logo-text-container">
+                        <span class="logo-text">GolfSlot</span>
+                        <span class="logo-tagline">Plan Your Perfect Trip</span>
+                    </div>
+                </div>
+            </a>
+            
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link">
+                        Destinations <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="scottsdale.html">Scottsdale, Arizona</a></li>
+                        <li><a href="naples.html">Streamsong (via Tampa)</a></li>
+                        <li><a href="dallas.html">Dallas/Fort Worth</a></li>
+                        <li><a href="orlando.html">Streamsong (via Orlando)</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="add-trip.html" class="nav-link">Add Trip</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="my-trips.html" class="nav-link">My Trips</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="itinerary-header">
+        <h1><i class="fas fa-plus-circle"></i> Create New Trip</h1>
+        <p>Add your flights, accommodation, golf courses, and car rental details</p>
+    </section>
+
+    <!-- Form Content -->
+    <div class="container">
+        <form class="form-container" id="tripForm">
+            <!-- Trip Details Section -->
+            <div class="form-section">
+                <h2 class="form-section-title">
+                    <i class="fas fa-info-circle"></i> Trip Details
+                </h2>
+                
+                <div class="form-group">
+                    <label for="tripName">Trip Name <span class="required">*</span></label>
+                    <input type="text" id="tripName" class="form-input" placeholder="e.g., Scottsdale Golf Weekend 2026" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <select id="destination" class="form-select">
+                            <option value="">Select destination...</option>
+                            <option value="scottsdale">Scottsdale, Arizona</option>
+                            <option value="naples">Naples, Florida</option>
+                            <option value="dallas">Dallas/Fort Worth, Texas</option>
+                            <option value="orlando">Orlando, Florida</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="numPeople">Number of Golfers</label>
+                        <select id="numPeople" class="form-select">
+                            <option value="2">2 Golfers</option>
+                            <option value="3">3 Golfers</option>
+                            <option value="4" selected>4 Golfers</option>
+                            <option value="5">5 Golfers</option>
+                            <option value="6">6 Golfers</option>
+                            <option value="8">8 Golfers</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Start Date <span class="required">*</span></label>
+                        <input type="date" id="startDate" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate" class="form-input">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flights Section -->
+            <div class="form-section">
+                <h2 class="form-section-title">
+                    <i class="fas fa-plane"></i> Flights
+                </h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departureAirport">Departure Airport</label>
+                        <select id="departureAirport" class="form-select">
+                            <option value="">Select airport...</option>
+                            <option value="LAX">LAX - Los Angeles</option>
+                            <option value="EWR">EWR - Newark</option>
+                            <option value="JFK">JFK - New York</option>
+                            <option value="ORD">ORD - Chicago O'Hare</option>
+                            <option value="SFO">SFO - San Francisco</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrivalAirport">Arrival Airport</label>
+                        <input type="text" id="arrivalAirport" class="form-input" placeholder="e.g., PHX - Phoenix">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="outboundFlight">Outbound Flight</label>
+                        <input type="text" id="outboundFlight" class="form-input" placeholder="e.g., AA1234 - 8:00am departure">
+                    </div>
+                    <div class="form-group">
+                        <label for="returnFlight">Return Flight</label>
+                        <input type="text" id="returnFlight" class="form-input" placeholder="e.g., AA5678 - 4:30pm departure">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="flightPrice">Flight Price Per Person ($)</label>
+                        <input type="number" id="flightPrice" class="form-input" placeholder="e.g., 275" min="0" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="flightLink">Booking Link</label>
+                        <input type="url" id="flightLink" class="form-input" placeholder="https://www.google.com/travel/flights...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accommodation Section -->
+            <div class="form-section">
+                <h2 class="form-section-title">
+                    <i class="fas fa-hotel"></i> Accommodation (3 Nights)
+                </h2>
+                
+                <div class="form-group">
+                    <label for="accommodationName">Accommodation Name</label>
+                    <input type="text" id="accommodationName" class="form-input" placeholder="e.g., Fairmont Scottsdale Princess">
+                </div>
+                
+                <div class="form-group">
+                    <label for="accommodationLink">Booking Link (Airbnb, Booking.com, Hotel Website)</label>
+                    <input type="url" id="accommodationLink" class="form-input" placeholder="https://www.airbnb.com/rooms/...">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="accommodationPrice">Total Price ($)</label>
+                        <input type="number" id="accommodationPrice" class="form-input" placeholder="e.g., 1800" min="0" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="accommodationType">Accommodation Type</label>
+                        <select id="accommodationType" class="form-select">
+                            <option value="resort">Golf Resort</option>
+                            <option value="hotel">Hotel</option>
+                            <option value="airbnb">Airbnb/Vacation Rental</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="accommodationNotes">Notes</label>
+                    <textarea id="accommodationNotes" class="form-textarea" placeholder="Check-in time, room type, amenities, etc."></textarea>
+                </div>
+            </div>
+
+            <!-- Golf Courses Section -->
+            <div class="form-section">
+                <h2 class="form-section-title">
+                    <i class="fas fa-golf-ball"></i> Golf Courses (up to 4)
+                </h2>
+                
+                <div id="coursesContainer">
+                    <!-- Course 1 -->
+                    <div class="course-entry" data-course="1">
+                        <div class="course-entry-header">
+                            <span class="course-entry-title">
+                                <i class="fas fa-flag"></i> Course 1
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Course Name</label>
+                            <input type="text" class="form-input course-name" placeholder="e.g., TPC Scottsdale Stadium">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Price Per Person ($)</label>
+                                <input type="number" class="form-input course-price" placeholder="e.g., 275" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Tee Time</label>
+                                <input type="time" class="form-input course-time">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Booking Link</label>
+                            <input type="url" class="form-input course-link" placeholder="https://tpc.com/scottsdale/">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="add-course-btn" id="addCourseBtn">
+                    <i class="fas fa-plus"></i> Add Another Course
+                </button>
+            </div>
+
+            <!-- Car Rental Section -->
+            <div class="form-section">
+                <h2 class="form-section-title">
+                    <i class="fas fa-car"></i> Car Rental
+                </h2>
+                
+                <div class="form-group">
+                    <label for="carCompany">Rental Company</label>
+                    <input type="text" id="carCompany" class="form-input" placeholder="e.g., Enterprise, Hertz, National">
+                </div>
+                
+                <div class="form-group">
+                    <label for="carLink">Booking Link</label>
+                    <input type="url" id="carLink" class="form-input" placeholder="https://www.enterprise.com/...">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="carPrice">Total Rental Price ($)</label>
+                        <input type="number" id="carPrice" class="form-input" placeholder="e.g., 320" min="0" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="carType">Vehicle Type</label>
+                        <select id="carType" class="form-select">
+                            <option value="compact">Compact</option>
+                            <option value="midsize">Midsize</option>
+                            <option value="suv" selected>SUV (Recommended for golf bags)</option>
+                            <option value="minivan">Minivan</option>
+                            <option value="luxury">Luxury</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="carNotes">Notes</label>
+                    <textarea id="carNotes" class="form-textarea" placeholder="Pick-up/drop-off location, insurance details, etc."></textarea>
+                </div>
+            </div>
+
+            <!-- Summary & Save -->
+            <div class="form-section" style="border-bottom: none;">
+                <h2 class="form-section-title">
+                    <i class="fas fa-calculator"></i> Cost Summary
+                </h2>
+                
+                <div class="cost-summary" style="margin-top: 0; box-shadow: none; padding: 0;">
+                    <div class="cost-item" id="summaryFlights">
+                        <span><i class="fas fa-plane"></i> Flights</span>
+                        <span>$0</span>
+                    </div>
+                    <div class="cost-item" id="summaryAccommodation">
+                        <span><i class="fas fa-bed"></i> Accommodation</span>
+                        <span>$0</span>
+                    </div>
+                    <div class="cost-item" id="summaryGolf">
+                        <span><i class="fas fa-golf-ball"></i> Golf Courses</span>
+                        <span>$0</span>
+                    </div>
+                    <div class="cost-item" id="summaryCar">
+                        <span><i class="fas fa-car"></i> Car Rental</span>
+                        <span>$0</span>
+                    </div>
+                    
+                    <div class="cost-total" id="summaryTotal">
+                        <span>Total Per Person</span>
+                        <span>$0</span>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem;">
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-save"></i> Save Trip
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p><i class="fas fa-golf-ball"></i> GolfSlot - Plan Your Perfect Golf Trip</p>
+            <p style="font-size: 0.8rem; opacity: 0.6;">© 2026 GolfSlot. All prices shown are estimates.</p>
+        </div>
+    </footer>
+
+    <script src="navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let courseCount = 1;
+            const maxCourses = 4;
+            
+            // Add Course Button
+            const addCourseBtn = document.getElementById('addCourseBtn');
+            const coursesContainer = document.getElementById('coursesContainer');
+            
+            addCourseBtn.addEventListener('click', function() {
+                if (courseCount >= maxCourses) {
+                    alert('Maximum of 4 courses allowed per trip.');
+                    return;
+                }
+                
+                courseCount++;
+                
+                const courseEntry = document.createElement('div');
+                courseEntry.className = 'course-entry';
+                courseEntry.dataset.course = courseCount;
+                courseEntry.innerHTML = `
+                    <div class="course-entry-header">
+                        <span class="course-entry-title">
+                            <i class="fas fa-flag"></i> Course ${courseCount}
+                        </span>
+                        <button type="button" class="remove-course-btn" title="Remove course">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <label>Course Name</label>
+                        <input type="text" class="form-input course-name" placeholder="e.g., Troon North Monument">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Price Per Person ($)</label>
+                            <input type="number" class="form-input course-price" placeholder="e.g., 250" min="0" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Tee Time</label>
+                            <input type="time" class="form-input course-time">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Booking Link</label>
+                        <input type="url" class="form-input course-link" placeholder="https://www.coursename.com/book">
+                    </div>
+                `;
+                
+                coursesContainer.appendChild(courseEntry);
+                
+                // Add remove functionality
+                const removeBtn = courseEntry.querySelector('.remove-course-btn');
+                removeBtn.addEventListener('click', function() {
+                    courseEntry.remove();
+                    courseCount--;
+                    updateCourseNumbers();
+                    updateSummary();
+                });
+                
+                // Add price listener
+                const priceInput = courseEntry.querySelector('.course-price');
+                priceInput.addEventListener('input', updateSummary);
+                
+                if (courseCount >= maxCourses) {
+                    addCourseBtn.style.display = 'none';
+                }
+            });
+            
+            function updateCourseNumbers() {
+                const entries = coursesContainer.querySelectorAll('.course-entry');
+                entries.forEach((entry, index) => {
+                    const title = entry.querySelector('.course-entry-title');
+                    title.innerHTML = `<i class="fas fa-flag"></i> Course ${index + 1}`;
+                });
+                
+                if (courseCount < maxCourses) {
+                    addCourseBtn.style.display = 'flex';
+                }
+            }
+            
+            // Update Summary
+            function updateSummary() {
+                const numPeople = parseInt(document.getElementById('numPeople').value) || 4;
+                
+                // Flights (per person already)
+                const flightPrice = parseFloat(document.getElementById('flightPrice').value) || 0;
+                
+                // Accommodation (total divided by people)
+                const accommodationPrice = parseFloat(document.getElementById('accommodationPrice').value) || 0;
+                const accommodationPerPerson = Math.round(accommodationPrice / numPeople);
+                
+                // Golf courses (sum of all per-person prices)
+                const coursePrices = document.querySelectorAll('.course-price');
+                let totalGolf = 0;
+                coursePrices.forEach(input => {
+                    totalGolf += parseFloat(input.value) || 0;
+                });
+                
+                // Car rental (total divided by people)
+                const carPrice = parseFloat(document.getElementById('carPrice').value) || 0;
+                const carPerPerson = Math.round(carPrice / numPeople);
+                
+                // Update display
+                document.querySelector('#summaryFlights span:last-child').textContent = `$${flightPrice}`;
+                document.querySelector('#summaryAccommodation span:last-child').textContent = `$${accommodationPerPerson}`;
+                document.querySelector('#summaryGolf span:last-child').textContent = `$${totalGolf}`;
+                document.querySelector('#summaryCar span:last-child').textContent = `$${carPerPerson}`;
+                
+                const total = flightPrice + accommodationPerPerson + totalGolf + carPerPerson;
+                document.querySelector('#summaryTotal span:last-child').textContent = `$${total}`;
+            }
+            
+            // Add listeners to update summary
+            document.getElementById('flightPrice').addEventListener('input', updateSummary);
+            document.getElementById('accommodationPrice').addEventListener('input', updateSummary);
+            document.getElementById('carPrice').addEventListener('input', updateSummary);
+            document.getElementById('numPeople').addEventListener('change', updateSummary);
+            document.querySelector('.course-price').addEventListener('input', updateSummary);
+            
+            // Form submission
+            document.getElementById('tripForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Gather form data
+                const tripData = {
+                    id: Date.now(),
+                    name: document.getElementById('tripName').value,
+                    destination: document.getElementById('destination').value,
+                    startDate: document.getElementById('startDate').value,
+                    endDate: document.getElementById('endDate').value,
+                    numPeople: parseInt(document.getElementById('numPeople').value),
+                    flights: {
+                        departure: document.getElementById('departureAirport').value,
+                        arrival: document.getElementById('arrivalAirport').value,
+                        outbound: document.getElementById('outboundFlight').value,
+                        return: document.getElementById('returnFlight').value,
+                        pricePerPerson: parseFloat(document.getElementById('flightPrice').value) || 0,
+                        link: document.getElementById('flightLink').value
+                    },
+                    accommodation: {
+                        name: document.getElementById('accommodationName').value,
+                        link: document.getElementById('accommodationLink').value,
+                        price: parseFloat(document.getElementById('accommodationPrice').value) || 0,
+                        type: document.getElementById('accommodationType').value,
+                        notes: document.getElementById('accommodationNotes').value
+                    },
+                    courses: [],
+                    car: {
+                        company: document.getElementById('carCompany').value,
+                        link: document.getElementById('carLink').value,
+                        price: parseFloat(document.getElementById('carPrice').value) || 0,
+                        type: document.getElementById('carType').value,
+                        notes: document.getElementById('carNotes').value
+                    }
+                };
+                
+                // Gather course data
+                const courseEntries = document.querySelectorAll('.course-entry');
+                courseEntries.forEach(entry => {
+                    const name = entry.querySelector('.course-name').value;
+                    if (name) {
+                        tripData.courses.push({
+                            name: name,
+                            price: parseFloat(entry.querySelector('.course-price').value) || 0,
+                            time: entry.querySelector('.course-time').value,
+                            link: entry.querySelector('.course-link').value
+                        });
+                    }
+                });
+                
+                // Save to localStorage
+                let trips = JSON.parse(localStorage.getItem('golfTrips') || '[]');
+                trips.push(tripData);
+                localStorage.setItem('golfTrips', JSON.stringify(trips));
+                
+                // Redirect to my trips
+                alert('Trip saved successfully!');
+                window.location.href = 'my-trips.html';
+            });
+        });
+    </script>
+</body>
+</html>

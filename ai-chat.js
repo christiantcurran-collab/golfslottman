@@ -1,11 +1,11 @@
 // AI Golf Trip Assistant - OpenAI Integration
 (function() {
-    // Get API key from config
-    const API_KEY = window.GOLFSLOT_CONFIG?.OPENAI_API_KEY || '';
     const API_URL = 'https://api.openai.com/v1/chat/completions';
+    const STORAGE_KEY = 'golfslot_openai_key';
     
     let chatHistory = [];
     let isOpen = false;
+    let apiKey = localStorage.getItem(STORAGE_KEY) || '';
     
     // System prompt for the AI
     const SYSTEM_PROMPT = `You are a helpful golf trip planning assistant for GolfSlot. Your role is to help users plan golf trips.
@@ -57,23 +57,15 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
                         <i class="fas fa-robot"></i>
                         <span>Golf Trip AI Assistant</span>
                     </div>
-                    <button id="ai-chat-close"><i class="fas fa-times"></i></button>
-                </div>
-                <div id="ai-chat-messages">
-                    <div class="ai-message">
-                        <div class="message-content">
-                            👋 Hi! I'm your Golf Trip AI Assistant. I can help you:
-                            <ul>
-                                <li>Plan new golf trip destinations</li>
-                                <li>Get course recommendations</li>
-                                <li>Find flight and accommodation info</li>
-                                <li>Add custom trips to GolfSlot</li>
-                            </ul>
-                            Where would you like to plan your next golf trip?
-                        </div>
+                    <div class="ai-chat-header-btns">
+                        <button id="ai-chat-settings" title="Settings"><i class="fas fa-cog"></i></button>
+                        <button id="ai-chat-close"><i class="fas fa-times"></i></button>
                     </div>
                 </div>
-                <div id="ai-chat-input-container">
+                <div id="ai-chat-messages">
+                    ${!apiKey ? getApiKeyPrompt() : getWelcomeMessage()}
+                </div>
+                <div id="ai-chat-input-container" ${!apiKey ? 'style="display:none"' : ''}>
                     <input type="text" id="ai-chat-input" placeholder="Ask about golf destinations...">
                     <button id="ai-chat-send"><i class="fas fa-paper-plane"></i></button>
                 </div>
@@ -83,6 +75,41 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
         document.body.appendChild(chatContainer);
         addChatStyles();
         setupEventListeners();
+    }
+    
+    function getWelcomeMessage() {
+        return `
+            <div class="ai-message">
+                <div class="message-content">
+                    👋 Hi! I'm your Golf Trip AI Assistant. I can help you:
+                    <ul>
+                        <li>Plan new golf trip destinations</li>
+                        <li>Get course recommendations</li>
+                        <li>Find flight and accommodation info</li>
+                        <li>Add custom trips to GolfSlot</li>
+                    </ul>
+                    Where would you like to plan your next golf trip?
+                </div>
+            </div>
+        `;
+    }
+    
+    function getApiKeyPrompt() {
+        return `
+            <div class="ai-message">
+                <div class="message-content">
+                    <div class="api-key-setup">
+                        <h4><i class="fas fa-key"></i> API Key Required</h4>
+                        <p>To use the AI assistant, please enter your OpenAI API key:</p>
+                        <input type="password" id="api-key-input" placeholder="sk-proj-...">
+                        <button id="save-api-key" class="save-key-btn">
+                            <i class="fas fa-save"></i> Save Key
+                        </button>
+                        <p class="api-key-note">Your key is stored locally in your browser and never sent to our servers.</p>
+                    </div>
+                </div>
+            </div>
+        `;
     }
     
     function addChatStyles() {
@@ -173,18 +200,23 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
                 color: #e8b923;
             }
             
-            #ai-chat-close {
+            .ai-chat-header-btns {
+                display: flex;
+                gap: 0.5rem;
+            }
+            
+            #ai-chat-close, #ai-chat-settings {
                 background: none;
                 border: none;
                 color: white;
-                font-size: 1.2rem;
+                font-size: 1.1rem;
                 cursor: pointer;
                 padding: 0.25rem;
                 opacity: 0.8;
                 transition: opacity 0.2s;
             }
             
-            #ai-chat-close:hover {
+            #ai-chat-close:hover, #ai-chat-settings:hover {
                 opacity: 1;
             }
             
@@ -300,6 +332,69 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
                 transform: none;
             }
             
+            /* API Key Setup Styles */
+            .api-key-setup {
+                text-align: center;
+            }
+            
+            .api-key-setup h4 {
+                color: #1e3a5f;
+                margin: 0 0 0.75rem 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            
+            .api-key-setup h4 i {
+                color: #e8b923;
+            }
+            
+            .api-key-setup p {
+                margin: 0 0 1rem 0;
+                color: #6b7280;
+                font-size: 0.9rem;
+            }
+            
+            #api-key-input {
+                width: 100%;
+                padding: 0.75rem;
+                border: 2px solid #e5e7eb;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                margin-bottom: 0.75rem;
+                box-sizing: border-box;
+            }
+            
+            #api-key-input:focus {
+                outline: none;
+                border-color: #1e3a5f;
+            }
+            
+            .save-key-btn {
+                background: linear-gradient(135deg, #1e3a5f 0%, #2d4a6f 100%);
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                transition: transform 0.2s;
+            }
+            
+            .save-key-btn:hover {
+                transform: translateY(-2px);
+            }
+            
+            .api-key-note {
+                font-size: 0.8rem !important;
+                color: #9ca3af !important;
+                margin-top: 1rem !important;
+            }
+            
             .destination-card {
                 background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
                 border: 1px solid #86efac;
@@ -353,31 +448,112 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
     
     function setupEventListeners() {
         const toggle = document.getElementById('ai-chat-toggle');
-        const window = document.getElementById('ai-chat-window');
+        const chatWindow = document.getElementById('ai-chat-window');
         const close = document.getElementById('ai-chat-close');
+        const settings = document.getElementById('ai-chat-settings');
         const input = document.getElementById('ai-chat-input');
         const send = document.getElementById('ai-chat-send');
         
         toggle.addEventListener('click', () => {
             isOpen = true;
-            window.classList.add('open');
+            chatWindow.classList.add('open');
             toggle.classList.add('hidden');
-            input.focus();
+            if (input) input.focus();
         });
         
         close.addEventListener('click', () => {
             isOpen = false;
-            window.classList.remove('open');
+            chatWindow.classList.remove('open');
             toggle.classList.remove('hidden');
         });
         
-        send.addEventListener('click', sendMessage);
+        settings.addEventListener('click', showSettings);
         
-        input.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
+        if (send) {
+            send.addEventListener('click', sendMessage);
+        }
+        
+        if (input) {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+        
+        // Setup API key save button if present
+        setupApiKeyListeners();
+    }
+    
+    function setupApiKeyListeners() {
+        const saveBtn = document.getElementById('save-api-key');
+        if (saveBtn) {
+            saveBtn.addEventListener('click', saveApiKey);
+        }
+        
+        const keyInput = document.getElementById('api-key-input');
+        if (keyInput) {
+            keyInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    saveApiKey();
+                }
+            });
+        }
+    }
+    
+    function saveApiKey() {
+        const keyInput = document.getElementById('api-key-input');
+        const key = keyInput.value.trim();
+        
+        if (!key || !key.startsWith('sk-')) {
+            alert('Please enter a valid OpenAI API key (starts with sk-)');
+            return;
+        }
+        
+        apiKey = key;
+        localStorage.setItem(STORAGE_KEY, key);
+        
+        // Refresh the chat UI
+        const messages = document.getElementById('ai-chat-messages');
+        const inputContainer = document.getElementById('ai-chat-input-container');
+        
+        messages.innerHTML = getWelcomeMessage();
+        inputContainer.style.display = 'flex';
+        
+        document.getElementById('ai-chat-input').focus();
+    }
+    
+    function showSettings() {
+        const messages = document.getElementById('ai-chat-messages');
+        const currentKey = apiKey ? `${apiKey.substring(0, 10)}...${apiKey.substring(apiKey.length - 4)}` : 'Not set';
+        
+        messages.innerHTML = `
+            <div class="ai-message">
+                <div class="message-content">
+                    <div class="api-key-setup">
+                        <h4><i class="fas fa-cog"></i> Settings</h4>
+                        <p><strong>Current API Key:</strong> ${currentKey}</p>
+                        <p>Enter a new API key to update:</p>
+                        <input type="password" id="api-key-input" placeholder="sk-proj-...">
+                        <button id="save-api-key" class="save-key-btn">
+                            <i class="fas fa-save"></i> Update Key
+                        </button>
+                        <br><br>
+                        <button id="clear-chat" class="save-key-btn" style="background: #6b7280;">
+                            <i class="fas fa-trash"></i> Clear Chat History
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        setupApiKeyListeners();
+        
+        document.getElementById('clear-chat').addEventListener('click', () => {
+            chatHistory = [];
+            const messages = document.getElementById('ai-chat-messages');
+            messages.innerHTML = getWelcomeMessage();
         });
     }
     
@@ -388,6 +564,11 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
         
         const userMessage = input.value.trim();
         if (!userMessage) return;
+        
+        if (!apiKey) {
+            alert('Please set your OpenAI API key first (click the settings icon)');
+            return;
+        }
         
         // Add user message
         const userDiv = document.createElement('div');
@@ -413,7 +594,7 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${API_KEY}`
+                    'Authorization': `Bearer ${apiKey}`
                 },
                 body: JSON.stringify({
                     model: 'gpt-4o-mini',
@@ -454,7 +635,7 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
                                         <p><strong>Weather:</strong> ${dest.weather}</p>
                                         <p><strong>Courses:</strong> ${dest.courses.map(c => c.name).join(', ')}</p>
                                         <p><strong>Est. Cost:</strong> ${dest.totalEstimate}</p>
-                                        <button class="add-destination-btn" onclick="saveCustomDestination(${JSON.stringify(dest).replace(/"/g, '&quot;')})">
+                                        <button class="add-destination-btn" onclick='saveCustomDestination(${JSON.stringify(dest).replace(/'/g, "\\'")})'>
                                             <i class="fas fa-plus"></i> Save to My Trips
                                         </button>
                                     </div>
@@ -479,7 +660,7 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
             typingDiv.remove();
             const errorDiv = document.createElement('div');
             errorDiv.className = 'ai-message';
-            errorDiv.innerHTML = `<div class="message-content">Sorry, I couldn't connect to the AI service. Please try again.</div>`;
+            errorDiv.innerHTML = `<div class="message-content">Sorry, I couldn't connect to the AI service. Please check your API key.</div>`;
             messages.appendChild(errorDiv);
         }
         
@@ -539,4 +720,3 @@ Keep responses concise but informative. Use golf terminology appropriately.`;
         createChatUI();
     }
 })();
-

@@ -1,7 +1,6 @@
 // Password Protection for GolfSlot
 (function() {
-    // Get password from config
-    const CORRECT_PASSWORD = window.GOLFSLOT_CONFIG?.SITE_PASSWORD || 'Mustang14';
+    const CORRECT_PASSWORD = 'Mustang14';
     const AUTH_KEY = 'golfslot_authenticated';
     
     // Check if already authenticated
@@ -176,4 +175,3 @@
         }
     }
 })();
-
